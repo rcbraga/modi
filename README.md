@@ -15,7 +15,7 @@ To run MODI, you need to:
 See "Clone" button on this page for further information
 
 ## Setting up Python and third-party dependencies
-Our package has been developed and tested using Python 2.7 and the following
+Our package has been developed and tested using Python 3 and the following
 versions of the third-party packages:
 * rdkit
 * numpy
