@@ -25,16 +25,14 @@ versions of the third-party packages:
 
 ## Chemical descriptors and fingerprints implementations
 Our package has been developed and tested using :
-* maacs 
+* MAACS 
 * Morgan (radius 2 and nBits 2048)
-* morgan4 (radius 4 and nBits 2048)
-* morgan_chiral2 (radius 2 and nBits 2048)
-* morgan_chiral2 (radius 4 and nBits 2048)
+* Morgan4 (radius 4 and nBits 2048)
+* Morgan_chiral2 (radius 2 and nBits 2048)
+* Morgan_chiral2 (radius 4 and nBits 2048)
 * SiRMS (Simplex representation of molecular structure - a chemoinformatic tool for calculation of simplex (fragment) descriptors)
 
 # Example runs
-Note: You need to be running the following commands after you
-```cd {THIS_REPOSITORY}``` if you have not installed this package.
 
 To see the help on how to run the program go to examples folder:
 ``` 
