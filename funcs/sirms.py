@@ -1,5 +1,4 @@
 import pandas as pd
-import psycopg2
 from rdkit.Chem import PandasTools
 from rdkit.Chem import rdMolDescriptors,rdDepictor,Draw,MolFromSmiles,MolFromSmarts,Descriptors
 import time
