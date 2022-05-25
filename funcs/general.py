@@ -1,3 +1,4 @@
+from distutils.command.config import dump_file
 import pandas as pd 
 import numpy as np
 import copy
@@ -10,6 +11,7 @@ def fp_calculation(df , descriptor = "maccs"):
     from rdkit.Chem.AllChem import GetMorganFingerprintAsBitVect 
     from rdkit.Chem import MACCSkeys
     from rdkit.Chem import Descriptors
+    from rdkit.Chem.rdmolops import LayeredFingerprint 
     moldf = copy.deepcopy(df)
     if (descriptor=='maccs'):
         maccs_fp = lambda mol: MACCSkeys.GenMACCSKeys(mol)  
@@ -26,7 +28,23 @@ def fp_calculation(df , descriptor = "maccs"):
         radius= 4
         calcfp = lambda mol: GetMorganFingerprintAsBitVect(mol,nBits=nBits,radius=radius, useFeatures=False, useChirality=False)
         moldf['Mol'] = moldf.SMILES.apply(Chem.MolFromSmiles)
-        moldf['Descriptors'] = moldf.Mol.progress_apply(calcfp)       
+        moldf['Descriptors'] = moldf.Mol.progress_apply(calcfp) 
+    elif (descriptor=='morgan_chiral2'):
+        nBits = 2 * 1024
+        radius=2
+        calcfp = lambda mol: GetMorganFingerprintAsBitVect(mol,nBits=nBits,radius=radius, useFeatures=False, useChirality=True)
+        moldf['Mol'] = moldf.SMILES.apply(Chem.MolFromSmiles)
+        moldf['Descriptors'] = moldf.Mol.progress_apply(calcfp)  
+    elif (descriptor=='morgan_chiral4'):
+        nBits = 2 * 1024
+        radius=4
+        calcfp = lambda mol: GetMorganFingerprintAsBitVect(mol,nBits=nBits,radius=radius, useFeatures=False, useChirality=True)
+        moldf['Mol'] = moldf.SMILES.apply(Chem.MolFromSmiles)
+        moldf['Descriptors'] = moldf.Mol.progress_apply(calcfp)          
+    elif (descriptor=='rdkit'):
+        calcfp = lambda mol: LayeredFingerprint(mol)  
+        moldf['Mol'] = moldf.SMILES.apply(Chem.MolFromSmiles)
+        moldf['Descriptors'] = moldf.Mol.progress_apply(calcfp)                         
     else:
         print("The descriptor is not implemented")
     return moldf
@@ -36,9 +54,16 @@ def modi(df , outcome , descriptor = "maccs"):
     import pandas as pd 
     import numpy as np
     from scipy.spatial import distance
-    moldf = fp_calculation(moldf, descriptor)
+    from funcs.sirms import calculate_sirms
     try:
-        a = np.array(list(moldf['Descriptors']))
+        if (descriptor=='sirms'):
+            data = calculate_sirms(moldf)
+            data.fillna(0)
+            data = data.drop(columns=['Compounds'])
+            a = data.to_numpy()
+        else:
+            moldf = fp_calculation(moldf, descriptor)
+            a = np.array(list(moldf['Descriptors']))
         dm = pd.DataFrame(distance.cdist(a, a, 'euclidean'))
         dm["nn_dist"] = dm.replace(0, np.nan).min()
         dm2 = moldf.merge(dm, left_index=True, right_index=True)    

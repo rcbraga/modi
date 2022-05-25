@@ -1,1 +1,4 @@
-func/__pycache__/*.pyc
+func/__pycache__/*
+funcs/__pycache__/__init__.*pyc
+funcs/__pycache__/sirms.*.pyc
+funcs/__pycache__/general.*.pyc
