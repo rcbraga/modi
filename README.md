@@ -36,7 +36,7 @@ Our package has been developed and tested using :
 
 To see the help on how to run the program go to examples folder:
 ``` 
-Tutorial_classification.ipynb
+examples/Tutorial_classification.ipynb
 ```
 
 
