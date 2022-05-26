@@ -30,7 +30,7 @@ Our package has been developed and tested using :
 * Morgan4 (radius 4 and nBits 2048)
 * Morgan_chiral2 (radius 2 and nBits 2048)
 * Morgan_chiral2 (radius 4 and nBits 2048)
-* SiRMS (Simplex representation of molecular structure - a chemoinformatic tool for calculation of simplex (fragment) descriptors)
+* SiRMS (Simplex (fragment) representation of molecular structure)
 
 # Example runs
 
