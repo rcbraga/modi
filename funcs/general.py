@@ -88,6 +88,6 @@ def modi(df , outcome , descriptor = "maccs"):
         outcomeList.append(dm2[outcome][dm2.index == sel_index[0]].to_list()[0])
     dm2["nn_outcome"] = outcomeList
     tot_agree = dm2[dm2[outcome] == dm2["nn_outcome"]].shape[0]
-    tot = dm2[dm2[outcome] == dm2["nn_outcome"]].shape[1]
+    tot = dm.shape[0]
     modi = tot_agree/tot
     return modi 
